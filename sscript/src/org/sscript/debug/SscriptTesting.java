@@ -8,6 +8,9 @@ import org.sscript.core.Module;
 import org.sscript.core.SScriptInterpreter;
 import org.sscript.core.instructions.InstructionPrint;
 import org.sscript.core.instructions.InstructionPrintLine;
+import org.sscript.exceptions.CompiletimeException;
+import org.sscript.exceptions.RuntimeException;
+import org.sscript.exceptions.UnrecognizedSyntaxException;
 
 public class SscriptTesting {
 
@@ -31,6 +34,12 @@ public class SscriptTesting {
 			
 			
 		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (UnrecognizedSyntaxException e) {
+			e.printStackTrace();
+		} catch (CompiletimeException e) {
+			e.printStackTrace();
+		} catch (RuntimeException e) {
 			e.printStackTrace();
 		}
 	}

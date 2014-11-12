@@ -1,18 +1,23 @@
 package org.sscript.core.instructions;
 
 import org.sscript.core.Instruction;
+import org.sscript.exceptions.RuntimeException;
 
 public class InstructionPrint implements Instruction{
 	
 	private String commandInfo;
 	
 	@Override
-	public boolean execute() {
+	public boolean execute() throws RuntimeException {
+		try{
 		String literal = commandInfo.split("\"")[1];
 		literal = literal.replaceAll("\\\\n", "\n");
 		literal = literal.replaceAll("\\\\t", "\t");
 		System.out.print(literal);
-		return false;
+		return true;
+		}catch(Exception e){
+			throw new RuntimeException(commandInfo, "Error in " + getInstructionId() + " statement.");
+		}
 	}
 
 	@Override

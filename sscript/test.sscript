@@ -1,3 +1,4 @@
 name test
 
-plstr "Print line string only"
+
+plstr Print line string only
