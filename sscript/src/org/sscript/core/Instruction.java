@@ -1,8 +1,32 @@
 package org.sscript.core;
 
-public interface Instruction {
+public class Instruction {
 	
-	public abstract boolean execute();
-	public abstract String getInstructionId();
+	private String commandLine;
+	
+	public Instruction(){
+		
+	}
+	
+	public Instruction(Instruction i){
+		this.commandLine = i.getCommandInfo();
+		System.out.println(i.getCommandInfo());
+	}
+	
+	public boolean execute() {
+		return false;
+	}
+	
+	public String getInstructionId() {
+		return null;
+	}
+	
+	public void setCommandInfo(String commandLine) {
+		this.commandLine = commandLine;
+	}
+	
+	protected String getCommandInfo(){
+		return commandLine;
+	}
 	
 }

@@ -1,0 +1,9 @@
+name testmodule
+
+
+
+print "test test2\\nn"
+
+
+
+print "testing whitespace\n\n"

@@ -24,6 +24,9 @@ public class SScriptInterpreter {
 			System.out.println("File " + file.getName() + " is not a sscript file!");
 			return null;
 		}
+		
+		System.out.println("Reading file " + file.getName());
+		
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
 		String line = br.readLine();
@@ -39,14 +42,16 @@ public class SScriptInterpreter {
 		}
 		
 		br.close();
-		return null;
+		return moduleInProg;
 	}
 	
 	private void parseLine(Module moduleInProg, String line){
 		String[] splitLine = line.split(" ");
 		for(Instruction i : possibleInstructions){
 			if(splitLine[0].equals(i.getInstructionId())){
-				moduleInProg.addInstruction();
+				i.setCommandInfo(line);
+				Instruction i2 = new Instruction(i);
+				moduleInProg.addInstruction(i2);
 			}
 		}
 	}
