@@ -3,6 +3,7 @@ package org.sscript.core;
 public class Instruction {
 	
 	private String commandLine;
+	private String instructionId;
 	
 	public Instruction(){
 		
@@ -10,7 +11,7 @@ public class Instruction {
 	
 	public Instruction(Instruction i){
 		this.commandLine = i.getCommandInfo();
-		System.out.println(i.getCommandInfo());
+		this.instructionId = i.getInstructionId();
 	}
 	
 	public boolean execute() {
@@ -18,7 +19,7 @@ public class Instruction {
 	}
 	
 	public String getInstructionId() {
-		return null;
+		return instructionId;
 	}
 	
 	public void setCommandInfo(String commandLine) {
