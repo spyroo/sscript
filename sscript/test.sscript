@@ -1,9 +1,3 @@
-name testmodule
+name test
 
-
-
-print "test test2\\nn"
-
-
-
-print "testing whitespace\n\n"
+plstr "Print line string only"

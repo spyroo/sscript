@@ -48,9 +48,9 @@ public class SScriptInterpreter {
 	private void parseLine(Module moduleInProg, String line){
 		String[] splitLine = line.split(" ");
 		for(Instruction i : possibleInstructions){
-			if(splitLine[0].equals(i.getInstructionId())){
+			if(splitLine[0].equals(i.getInstructionId())){ 
 				i.setCommandInfo(line);
-				Instruction i2 = new Instruction(i);
+				Instruction i2 = i.getCopy();
 				moduleInProg.addInstruction(i2);
 			}
 		}

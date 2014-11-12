@@ -2,34 +2,34 @@ package org.sscript.core.instructions;
 
 import org.sscript.core.Instruction;
 
-public class InstructionPrint implements Instruction{
-	
-	private String commandInfo;
+public class InstructionPrintLine implements Instruction{
+
+	private String commandLine;
 	
 	@Override
 	public boolean execute() {
-		String literal = commandInfo.split("\"")[1];
+		String literal = commandLine.split("\"")[1];
 		literal = literal.replaceAll("\\\\n", "\n");
 		literal = literal.replaceAll("\\\\t", "\t");
-		System.out.print(literal);
-		return false;
+		System.out.println(literal);
+		return true;
 	}
 
 	@Override
 	public String getInstructionId() {
-		return "pstr";
+		return "plstr";
 	}
 
 	@Override
 	public void setCommandInfo(String commandLine) {
-		this.commandInfo = commandLine;
+		this.commandLine = commandLine;
 	}
 
 	@Override
 	public Instruction getCopy() {
-		InstructionPrint ip = new InstructionPrint();
-		ip.setCommandInfo(commandInfo);
-		return ip;
+		InstructionPrintLine ipl = new InstructionPrintLine();
+		ipl.setCommandInfo(commandLine);
+		return ipl;
 	}
 
 }

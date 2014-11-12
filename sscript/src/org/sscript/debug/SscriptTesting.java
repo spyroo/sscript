@@ -7,6 +7,7 @@ import org.sscript.core.Instruction;
 import org.sscript.core.Module;
 import org.sscript.core.SScriptInterpreter;
 import org.sscript.core.instructions.InstructionPrint;
+import org.sscript.core.instructions.InstructionPrintLine;
 
 public class SscriptTesting {
 
@@ -17,6 +18,7 @@ public class SscriptTesting {
 	public SscriptTesting(){
 		SScriptInterpreter sint = new SScriptInterpreter();
 		sint.addPossibleInstruction(new InstructionPrint());
+		sint.addPossibleInstruction(new InstructionPrintLine());
 		try {
 			Module m = sint.parseFileToModule(new File("test.sscript"));
 			
