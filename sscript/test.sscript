@@ -4,3 +4,5 @@ printl "Creating a variable on the next line"
 
 cvar newvar 1234
 cvar anothernewvar test
+
+print newvar

@@ -1,5 +1,7 @@
 package org.sscript.core.instructions;
 
+import java.util.Set;
+
 import org.sscript.core.Instruction;
 import org.sscript.core.Module;
 import org.sscript.exceptions.RuntimeException;
@@ -11,12 +13,20 @@ public class InstructionPrint implements Instruction{
 	@Override
 	public boolean execute(Module m) throws RuntimeException {
 		try{
-		String literal = commandInfo.split("\"")[1];
-		literal = literal.replaceAll("\\\\n", "\n");
-		literal = literal.replaceAll("\\\\t", "\t");
-		System.out.print(literal);
-		return true;
+			String varTest = commandInfo.substring(7, commandInfo.length());
+			Set keyset = m.getMemoryMap().keySet();
+			for(Object o : keyset){
+				if(o.toString().equals(varTest)){
+					System.out.print(m.getMemoryMap().get(o));
+				}
+			}
+			String literal = commandInfo.split("\"")[1];
+			literal = literal.replaceAll("\\\\n", "\n");
+			literal = literal.replaceAll("\\\\t", "\t");
+			System.out.print(literal);
+			return true;
 		}catch(Exception e){
+			e.printStackTrace();
 			throw new RuntimeException(commandInfo, "Error in " + getInstructionId() + " statement.");
 		}
 	}
