@@ -15,7 +15,7 @@ public class Module {
 	public Module(String moduleName){
 		this.moduleName = moduleName;
 		instructionList = new ArrayList<Instruction>();
-		SScriptCore.printDebugString("...> Creating module " + moduleName);
+		SScriptCore.printDebugString("Creating module " + moduleName);
 		memoryMap = new HashMap<String, Object>();
 	}
 	
@@ -27,13 +27,20 @@ public class Module {
 		return instructionList;
 	}
 	
+	public Map<String, Object> getMemoryMap() {
+		return memoryMap;
+	}
+	
 	public void allocateMemory(){
-		SScriptCore.printDebugString("...> Allocation memory in module " + moduleName);
+		SScriptCore.printDebugString("Allocation memory in module " + moduleName);
 		for(Instruction i : instructionList){
 			if(i instanceof InstructionCreateVariable){
-				//do stuff here
+				InstructionCreateVariable icv = (InstructionCreateVariable)i;
+				memoryMap.put(icv.getVariableName(), icv.getVariableValue());
+				SScriptCore.printDebugString("Allocated " + icv.getVariableName() + " with value " + icv.getVariableValue().toString());
 			}
 		}
+		SScriptCore.printDebugString("Finished allocating memory in module " + moduleName);
 	}
 
 	public String getModuleName() {

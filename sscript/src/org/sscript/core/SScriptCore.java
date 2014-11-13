@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.sscript.core.instructions.InstructionCreateVariable;
 import org.sscript.core.instructions.InstructionPrint;
 import org.sscript.core.instructions.InstructionPrintLine;
 import org.sscript.exceptions.CompiletimeException;
@@ -34,6 +35,7 @@ public class SScriptCore {
 	public void addCoreCommands(){
 		sint.addPossibleInstruction(new InstructionPrint());
 		sint.addPossibleInstruction(new InstructionPrintLine());
+		sint.addPossibleInstruction(new InstructionCreateVariable());
 	}
 	
 	public void setCurrentExecutionPosition(int newPos){
@@ -55,6 +57,8 @@ public class SScriptCore {
 	
 	private boolean run() throws RuntimeException {
 		long startExecution = System.currentTimeMillis();
+		
+		currentModule.allocateMemory();
 		
 		ArrayList<Instruction> instructions = currentModule.getInstructions();
 		for(executionPosition = 0; executionPosition < instructions.size(); executionPosition++){

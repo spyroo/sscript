@@ -10,11 +10,11 @@ public class InstructionPrintLine implements Instruction{
 	@Override
 	public boolean execute() throws RuntimeException {
 		try{
-		String literal = commandLine.split("\"")[1];
-		literal = literal.replaceAll("\\\\n", "\n");
-		literal = literal.replaceAll("\\\\t", "\t");
-		System.out.println(literal);
-		return true;
+			String literal = commandLine.split("\"")[1];
+			literal = literal.replaceAll("\\\\n", "\n");
+			literal = literal.replaceAll("\\\\t", "\t");
+			System.out.println(literal);
+			return true;
 		}catch(Exception e){
 			throw new RuntimeException(commandLine, "Error in " + getInstructionId() + " statement.");
 		}

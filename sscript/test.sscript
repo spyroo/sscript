@@ -2,4 +2,5 @@ name testingmodule
 
 printl "Creating a variable on the next line"
 
-cvar newvar
+cvar newvar 1234
+cvar anothernewvar test
