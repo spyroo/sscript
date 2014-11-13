@@ -3,6 +3,7 @@ package org.sscript.core.instructions;
 import java.text.NumberFormat;
 
 import org.sscript.core.Instruction;
+import org.sscript.core.Module;
 import org.sscript.exceptions.RuntimeException;
 
 public class InstructionCreateVariable implements Instruction{
@@ -17,7 +18,7 @@ public class InstructionCreateVariable implements Instruction{
 	}
 
 	@Override
-	public boolean execute() throws RuntimeException {
+	public boolean execute(Module m) throws RuntimeException {
 		return false;
 	}
 	

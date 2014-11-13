@@ -1,6 +1,7 @@
 package org.sscript.core.instructions;
 
 import org.sscript.core.Instruction;
+import org.sscript.core.Module;
 import org.sscript.exceptions.RuntimeException;
 
 public class InstructionPrint implements Instruction{
@@ -8,7 +9,7 @@ public class InstructionPrint implements Instruction{
 	private String commandInfo;
 	
 	@Override
-	public boolean execute() throws RuntimeException {
+	public boolean execute(Module m) throws RuntimeException {
 		try{
 		String literal = commandInfo.split("\"")[1];
 		literal = literal.replaceAll("\\\\n", "\n");

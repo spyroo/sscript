@@ -62,7 +62,7 @@ public class SScriptCore {
 		
 		ArrayList<Instruction> instructions = currentModule.getInstructions();
 		for(executionPosition = 0; executionPosition < instructions.size(); executionPosition++){
-			instructions.get(executionPosition).execute();
+			instructions.get(executionPosition).execute(currentModule);
 		}
 		
 		long endExecution = System.currentTimeMillis();
