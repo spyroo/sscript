@@ -10,11 +10,11 @@ public class Module {
 	public Module(String moduleName){
 		this.moduleName = moduleName;
 		instructionList = new ArrayList<Instruction>();
-		System.out.println("Creating module " + moduleName);
+		if(SScriptCore.enableDeveloperMessages)
+			System.out.println("...> Creating module " + moduleName);
 	}
 	
 	public void addInstruction(Instruction inst){
-		System.out.println("Adding Instruction " + inst.getInstructionId());
 		instructionList.add(inst);
 	}
 	

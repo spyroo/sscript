@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import org.sscript.exceptions.CompiletimeException;
+import org.sscript.exceptions.UnrecognizedFiletypeException;
 import org.sscript.exceptions.UnrecognizedSyntaxException;
 
 public class SScriptInterpreter {
@@ -16,21 +17,26 @@ public class SScriptInterpreter {
 	
 	public SScriptInterpreter(){
 		possibleInstructions = new ArrayList<Instruction>();
-		lineNum = 0;
+		lineNum = 1;
 	}
 	
 	public void addPossibleInstruction(Instruction i){
 		possibleInstructions.add(i);
 	}
 	
-	public Module parseFileToModule(File file) throws IOException, UnrecognizedSyntaxException, CompiletimeException{
+	public ArrayList<Instruction> getPossibleInstructions(){
+		return possibleInstructions;
+	}
+	
+	public Module parseFileToModule(File file) throws IOException, UnrecognizedSyntaxException, CompiletimeException, UnrecognizedFiletypeException{
 		String[] fileParts = file.getName().split("\\.");
 		if(!fileParts[fileParts.length-1].equals("sscript")){
-			System.out.println("File " + file.getName() + " is not a sscript file!");
-			return null;
+			throw new UnrecognizedFiletypeException(file);
 		}
 		
-		System.out.println("Reading file " + file.getName());
+		if(SScriptCore.enableDeveloperMessages){
+			System.out.println("...> Reading file " + file.getName());
+		}
 		
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
@@ -43,6 +49,7 @@ public class SScriptInterpreter {
 		Module moduleInProg = new Module(line.split(" ")[1]);
 		
 		while((line = br.readLine()) != null){
+			lineNum++;
 			parseLine(moduleInProg, line);
 		}
 		
@@ -66,11 +73,10 @@ public class SScriptInterpreter {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
-			throw new CompiletimeException();
+			throw new CompiletimeException(lineNum);
 		}
 		
-		System.out.println(line.length());
-		throw new UnrecognizedSyntaxException("\'" + line + "\'");
+		throw new UnrecognizedSyntaxException("\'" + line + "\'", lineNum);
 		
 	}
 	
