@@ -41,9 +41,8 @@ public class SScriptInterpreter {
 		FileReader fr = new FileReader(file);
 		BufferedReader br = new BufferedReader(fr);
 		String line = br.readLine();
-		if(!line.startsWith("name")){
-			br.close();
-			return null;
+		while(!line.startsWith("name")){
+			line = br.readLine();
 		}
 		
 		Module moduleInProg = new Module(line.split(" ")[1]);

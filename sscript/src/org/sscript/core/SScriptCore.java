@@ -26,6 +26,10 @@ public class SScriptCore {
 		enableDeveloperMessages = false;
 	}
 	
+	public static void printDebugString(String debug){
+		if(enableDeveloperMessages)
+			System.out.println("...> " + debug);
+	}
 	
 	public void addCoreCommands(){
 		sint.addPossibleInstruction(new InstructionPrint());

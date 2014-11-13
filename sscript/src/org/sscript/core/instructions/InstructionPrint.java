@@ -22,7 +22,7 @@ public class InstructionPrint implements Instruction{
 
 	@Override
 	public String getInstructionId() {
-		return "pstr";
+		return InstructionKeywords.instructionPrint;
 	}
 
 	@Override
