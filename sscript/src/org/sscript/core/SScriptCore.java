@@ -8,6 +8,7 @@ import org.sscript.core.instructions.InstructionCreateVariable;
 import org.sscript.core.instructions.InstructionPrint;
 import org.sscript.core.instructions.InstructionPrintLine;
 import org.sscript.exceptions.CompiletimeException;
+import org.sscript.exceptions.MemoryAllocationException;
 import org.sscript.exceptions.RuntimeException;
 import org.sscript.exceptions.UnrecognizedFiletypeException;
 import org.sscript.exceptions.UnrecognizedSyntaxException;
@@ -55,7 +56,7 @@ public class SScriptCore {
 		return canChangePosition;
 	}
 	
-	private boolean run() throws RuntimeException {
+	private boolean run() throws RuntimeException, MemoryAllocationException {
 		long startExecution = System.currentTimeMillis();
 		
 		currentModule.allocateMemory();
@@ -67,15 +68,14 @@ public class SScriptCore {
 		
 		long endExecution = System.currentTimeMillis();
 		long finalTime = endExecution - startExecution;
-		if(enableDeveloperMessages){
-			System.out.println("\n\n...> ----------EXECUTION SUCCESSFUL----------");
-			System.out.println("...> Finished executing in " + finalTime + " mills\n");
-		}
+		SScriptCore.printDebugString("----------EXECUTION SUCCESSFUL----------");
+		SScriptCore.printDebugString("Finished executing in " + finalTime + " mills\n");
 		return true;
 	}
 	
 	public Module[] compileSscript(File... sscriptFiles) throws IOException, UnrecognizedSyntaxException, CompiletimeException, UnrecognizedFiletypeException{
 		long time = System.currentTimeMillis();
+		SScriptCore.printDebugString("----------");
 		if(sscriptFiles.length == 0){
 			return null;
 		}
@@ -87,14 +87,12 @@ public class SScriptCore {
 		}
 		long time2 = System.currentTimeMillis();
 		long finalTime = time2-time;
-		if(enableDeveloperMessages){
-			System.out.println("...> ----------COMPILE   SUCCESSFUL----------");
-			System.out.println("...> Finished compiling in " + finalTime + " mills\n");
-		}
+		SScriptCore.printDebugString("----------COMPILE   SUCCESSFUL----------");
+		SScriptCore.printDebugString("Finished compiling in " + finalTime + " mills\n");
 		return marray;
 	}
 	
-	public boolean runSscriptFile(Module m) throws RuntimeException{
+	public boolean runSscriptFile(Module m) throws RuntimeException, MemoryAllocationException{
 		this.currentModule = m;
 		return run();
 	}
@@ -108,5 +106,5 @@ public class SScriptCore {
 		}
 		return words;
 	}
-
+	
 }

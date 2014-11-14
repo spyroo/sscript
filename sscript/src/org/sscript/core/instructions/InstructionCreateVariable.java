@@ -1,9 +1,9 @@
 package org.sscript.core.instructions;
 
-import java.text.NumberFormat;
 
 import org.sscript.core.Instruction;
 import org.sscript.core.Module;
+import org.sscript.exceptions.MemoryAllocationException;
 import org.sscript.exceptions.RuntimeException;
 
 public class InstructionCreateVariable implements Instruction{
@@ -40,31 +40,33 @@ public class InstructionCreateVariable implements Instruction{
 	
 	public String getVariableName(){
 		String[] splitLine = commandInfo.split(" ");
-		return splitLine[1];
+		return splitLine[2];
 	}
 	
-	public Object getVariableValue(){
-		String[] splitLine = commandInfo.split(" ");
-		String value = commandInfo.substring(splitLine[0].length() + splitLine[1].length() + 2, commandInfo.length());
-	    Number number = null;
-	    try {
-	        number = Double.parseDouble(value);
-	    } catch(NumberFormatException e) {
-	        try {
-	            number = Float.parseFloat(value);
-	        } catch(NumberFormatException e1) {
-	            try {
-	                number = Long.parseLong(value);
-	            } catch(NumberFormatException e2) {
-	                try {
-	                    number = Integer.parseInt(value);
-	                } catch(NumberFormatException e3) {
-	                    return value;
-	                }
-	            }       
-	        }       
-	    }
-	    return (Object)number;
+	public Object getVariableValue() throws MemoryAllocationException{
+		String type = commandInfo.substring(getInstructionId().length() + 1, getInstructionId().length() + 4);
+		String value = commandInfo.substring(getInstructionId().length() + 1 + type.length() + 1 + getVariableName().length() + 1);
+		if(type.equals(InstructionKeywords.typeString)){
+			return value.split("\"")[1];
+		}else{
+			if(type.equals(InstructionKeywords.typeBoolean)){
+				return Boolean.parseBoolean(value);
+			}
+			if(type.equals(InstructionKeywords.typeDouble)){
+				return Double.parseDouble(value);
+			}
+			if(type.equals(InstructionKeywords.typeFloat)){
+				return Float.parseFloat(value);
+			}
+			if(type.equals(InstructionKeywords.typeInt)){
+				return Integer.parseInt(value);
+			}
+		}
+		throw new MemoryAllocationException();
+	}
+	
+	public Object getVariableType(){
+		return commandInfo.substring(getInstructionId().length() + 1, getInstructionId().length() + 4);
 	}
 	
 }

@@ -11,6 +11,10 @@ public class InstructionPrintLine implements Instruction{
 	@Override
 	public boolean execute(Module m) throws RuntimeException {
 		try{
+			if(!commandLine.contains("\"")){
+				System.out.print(m.getMemoryMap().get(commandLine.split(" ")[1]));
+				return true;
+			}
 			String literal = commandLine.split("\"")[1];
 			literal = literal.replaceAll("\\\\n", "\n");
 			literal = literal.replaceAll("\\\\t", "\t");

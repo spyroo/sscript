@@ -10,6 +10,7 @@ import org.sscript.core.SScriptInterpreter;
 import org.sscript.core.instructions.InstructionPrint;
 import org.sscript.core.instructions.InstructionPrintLine;
 import org.sscript.exceptions.CompiletimeException;
+import org.sscript.exceptions.MemoryAllocationException;
 import org.sscript.exceptions.RuntimeException;
 import org.sscript.exceptions.UnrecognizedFiletypeException;
 import org.sscript.exceptions.UnrecognizedSyntaxException;
@@ -38,6 +39,8 @@ public class SscriptTesting {
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		} catch (UnrecognizedFiletypeException e) {
+			e.printStackTrace();
+		} catch (MemoryAllocationException e) {
 			e.printStackTrace();
 		}
 	}

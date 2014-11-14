@@ -13,6 +13,10 @@ public class InstructionPrint implements Instruction{
 	@Override
 	public boolean execute(Module m) throws RuntimeException {
 		try{
+			if(!commandInfo.contains("\"")){
+				System.out.print(m.getMemoryMap().get(commandInfo.split(" ")[1]));
+				return true;
+			}
 			String varTest = commandInfo.substring(7, commandInfo.length());
 			Set keyset = m.getMemoryMap().keySet();
 			for(Object o : keyset){
